@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The Magic Finger — Venn Diagram</title><style>
+:root{--bg1:#fff3c4;--bg2:#e8dcff;--panel:#ffffffe6;--text:#23334d;--head:#5b2c9a;--sub:#c2410c;--muted:#5d5873;--line:#d6c9ed;--acc:#7953cc;--accd:#543597;--card:#fffefa;--cardt:#2d2845;--soft:#f4ecff;--inp:#fff;--ok:#2e9d57;--hm:#e0a100;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);font-family:"Trebuchet MS",system-ui,sans-serif;color:var(--text)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1f1a33;--bg2:#2b1f45;--panel:#2a2540ee;--text:#eae6f7;--head:#d3b8ff;--sub:#ffb27a;--muted:#b9b2d0;--line:#4a4270;--soft:#352d54;--inp:#1f1a33;--card:#fffefa;--cardt:#2d2845}}
+:root[data-theme="dark"]{--bg1:#1f1a33;--bg2:#2b1f45;--panel:#2a2540ee;--text:#eae6f7;--head:#d3b8ff;--sub:#ffb27a;--muted:#b9b2d0;--line:#4a4270;--soft:#352d54;--inp:#1f1a33}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(130deg,var(--bg1),var(--bg2))}
+.wrap{max-width:1050px;margin:auto;padding:16px}.panel{background:var(--panel);border-radius:26px;padding:20px;box-shadow:0 12px 40px #3b2f7a26}
+h1{margin:0;color:var(--head);font-size:clamp(24px,5vw,42px)}.sub{font-weight:800;color:var(--sub)}
+.top,.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.top{justify-content:space-between}
+select,input,textarea,button{font:inherit;border-radius:13px;padding:10px 14px;border:2px solid var(--line);color:var(--text);background:var(--inp)}
+button{cursor:pointer;font-weight:800;background:var(--acc);color:#fff;border:0;box-shadow:0 4px 0 var(--accd)}button:active{transform:translateY(3px);box-shadow:none}
+button.alt{background:#2f8f6b;box-shadow:0 4px 0 #1f6a4f}button.rst{background:#d9534f;box-shadow:0 4px 0 #a73a37}
+.about{background:var(--soft);border-radius:16px;padding:12px 16px;margin:12px 0;font-size:15px;line-height:1.5}
+.small{font-size:13px;color:var(--muted)}.msg{min-height:26px;font-weight:800;color:var(--head)}
+.stage{position:relative;height:430px;max-width:760px;margin:18px auto 6px;touch-action:manipulation}
+.circle{position:absolute;top:0;height:100%;width:61%;border-radius:50%;border:5px solid}
+.left{left:0;background:#ffba73b8;border-color:#ee8a3c}.right{right:0;background:#7fd1f4ad;border-color:#3697dc}
+.labels{position:absolute;top:14px;width:100%;display:flex;justify-content:space-between;text-align:center;pointer-events:none;color:#2a2545}.labels>div{width:33%}
+.ch{font-size:clamp(44px,9vw,74px);line-height:1}.cn{font-size:clamp(14px,2.5vw,21px);font-weight:900}
+.zone{position:absolute;z-index:3;text-align:center;overflow:hidden;top:27%;height:64%;border-radius:20px}
+.zone.leftz{left:4%;width:28%}.zone.rightz{right:4%;width:28%}.zone.bothz{left:36%;width:28%}
+.zone.over{background:#ffffff66;outline:3px dashed #7454cd}.bn{font-weight:900;color:#4a2f84}
+.placed{background:var(--card);color:var(--cardt);border:3px solid #fff;border-radius:12px;padding:4px 6px;font-size:clamp(10px,1.8vw,14px);font-weight:800;margin:4px 0;cursor:pointer;overflow-wrap:anywhere}
+.placed.ok{border-color:var(--ok)}.placed.hm{border-color:var(--hm)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}
+.tile{border:2px solid #ffda84;background:linear-gradient(120deg,#fff7c7,#fff);color:#3c3658;box-shadow:0 4px 0 #ebc879;padding:12px;border-radius:16px;cursor:grab;font-weight:900;text-align:center;user-select:none}
+.tile.sel{outline:4px solid #a174ed}.other{background:var(--soft);border-radius:18px;padding:16px;margin-top:16px}.other input,textarea{flex:1;min-width:170px;width:100%}textarea{margin-top:8px;min-height:70px;resize:vertical}
+.conf{position:fixed;pointer-events:none;font-size:26px;animation:pop .9s ease-out forwards;z-index:99}
+@keyframes pop{to{transform:translateY(-95px) rotate(45deg) scale(1.4);opacity:0}}
+@media(max-width:650px){.wrap{padding:8px}.panel{padding:12px}.stage{height:300px}.circle{border-width:3px}.placed{padding:2px;font-size:10px;margin:2px 0;border-width:2px}.ch{font-size:44px}}
+</style></head><body><main class="wrap"><div class="panel">
+<div class="top"><div><div class="sub" data-i="sub">✨ THE MAGIC FINGER · Roald Dahl ✨</div><h1 data-i="title">Two Characters, Two Perspectives</h1></div>
+<select id="lang" aria-label="Language"><option value="en">🇬🇧 English</option><option value="tr">🇹🇷 Türkçe</option><option value="el">🇬🇷 Ελληνικά</option><option value="it">🇮🇹 Italiano</option><option value="cs">🇨🇿 Čeština</option></select></div>
+<div class="about" data-i="about"></div>
+<p data-i="intro"></p>
+<div class="tools"><input id="student" data-p="student" aria-label="Student name"><span id="prog" class="small"></span><button class="alt" id="listen" data-i="listen">🔊 Listen</button></div>
+<div class="stage"><div class="circle left"></div><div class="circle right"></div>
+<div class="labels"><div><div class="ch">🧑‍🌾</div><div class="cn" data-i="mr">Mr Gregg</div></div><div></div><div><div class="ch">🦆</div><div class="cn" data-i="duck">Duck</div></div></div>
+<div class="zone leftz" data-z="left"></div><div class="zone bothz" data-z="both"><div class="bn" data-i="both">BOTH</div><div id="bothI"></div></div><div class="zone rightz" data-z="right"></div></div>
+<h3 data-i="cards">🌟 Choose and place the cards</h3><div class="tiles" id="tiles"></div>
+<div class="other"><strong data-i="other">💡 Other — My own idea</strong><p class="small" data-i="otherhelp"></p><div class="tools"><input id="custom" data-p="custom"><button id="add" data-i="add">+ Add card</button></div></div>
+<div class="other"><strong data-i="refl">📝 Think and write</strong><p id="q" style="margin:6px 0"></p><textarea id="ans" data-p="ans"></textarea></div>
+<p class="msg" id="msg" aria-live="polite"></p>
+<div class="tools" style="justify-content:space-between"><button class="rst" id="reset" data-i="reset">↺ Reset</button><button class="alt" id="check" data-i="check">✅ Check</button><button id="save" data-i="save">📸 Save my picture</button></div>
+<p class="small" data-i="foot"></p></div></main>
+<script>
+const $=x=>document.getElementById(x);
+const SP={en:'en-GB',tr:'tr-TR',el:'el-GR',it:'it-IT',cs:'cs-CZ'};
+const S={
+en:{sub:'✨ THE MAGIC FINGER · Roald Dahl ✨',title:'Two Characters, Two Perspectives',about:'📖 <b>Roald Dahl</b> wrote <i>The Magic Finger</i> (1966). A girl with a magic finger stops the Gregg family from hunting by turning them into bird-like creatures. Now they see the world like the ducks do.',intro:'Drag each card into the right part of the Venn diagram, or tap a card and then a circle. Orange = Mr Gregg only, blue = Duck only, middle = both.',student:'Student name',listen:'🔊 Listen',mr:'Mr Gregg',duck:'Duck',both:'BOTH',cards:'🌟 Choose and place the cards',other:'💡 Other — My own idea',otherhelp:'Write a different idea and place it in the diagram.',custom:'My idea...',add:'+ Add card',refl:'📝 Think and write',q:'How would you feel if you were the duck? What did Mr Gregg learn?',ans:'I think…',reset:'↺ Reset',check:'✅ Check',save:'📸 Save my picture',foot:'Click a placed card to take it back. There can be more than one thoughtful answer!',tap:'Now tap a circle!',added:'Great! Place your new card.',saved:'Your picture has been saved.',res:(a,b)=>`${a} of ${b} cards match our suggestion. Green = match, yellow = think again. Your reasons matter too!`,none:'Place some cards first.'},
+tr:{sub:'✨ BÜYÜLÜ PARMAK · Roald Dahl ✨',title:'İki Karakter, İki Bakış Açısı',about:'📖 <b>Roald Dahl</b>, <i>Büyülü Parmak</i> kitabını 1966’da yazdı. Büyülü parmağı olan bir kız, Gregg ailesini kuşa benzer yaratıklara dönüştürerek avlanmalarını durdurur. Artık dünyayı ördekler gibi görürler.',intro:'Her kartı Venn şemasının uygun bölümüne sürükle ya da karta, sonra daireye dokun. Turuncu = yalnız Bay Gregg, mavi = yalnız Ördek, orta = ortak.',student:'Öğrencinin adı',listen:'🔊 Dinle',mr:'Bay Gregg',duck:'Ördek',both:'ORTAK',cards:'🌟 Kartları seç ve yerleştir',other:'💡 Diğer — Kendi fikrim',otherhelp:'Farklı bir düşünce yaz ve şemaya yerleştir.',custom:'Benim fikrim...',add:'+ Kart ekle',refl:'📝 Düşün ve yaz',q:'Ördek olsaydın ne hissederdin? Bay Gregg ne öğrendi?',ans:'Bence…',reset:'↺ Sıfırla',check:'✅ Kontrol et',save:'📸 Resmimi kaydet',foot:'Yerleştirdiğin karta tıklayarak geri alabilirsin. Birden fazla düşünceli cevap olabilir!',tap:'Şimdi bir daireye dokun!',added:'Harika! Yeni kartını yerleştir.',saved:'Resmin kaydedildi.',res:(a,b)=>`${b} kartın ${a} tanesi önerimizle uyuşuyor. Yeşil = uyuşuyor, sarı = tekrar düşün. Senin gerekçelerin de önemli!`,none:'Önce birkaç kart yerleştir.'},
+el:{sub:'✨ ΤΟ ΜΑΓΙΚΟ ΔΑΧΤΥΛΟ · Roald Dahl ✨',title:'Δύο χαρακτήρες, δύο οπτικές',about:'📖 Ο <b>Roald Dahl</b> έγραψε το <i>Μαγικό Δάχτυλο</i> το 1966. Ένα κορίτσι με μαγικό δάχτυλο σταματά την οικογένεια Γκρεγκ από το κυνήγι, μετατρέποντάς τους σε πλάσματα σαν πουλιά. Τώρα βλέπουν τον κόσμο όπως οι πάπιες.',intro:'Σύρε κάθε κάρτα στο σωστό μέρος του διαγράμματος Venn ή πάτα μια κάρτα και μετά έναν κύκλο. Πορτοκαλί = μόνο ο κύριος Γκρεγκ, μπλε = μόνο η πάπια, στη μέση = και οι δύο.',student:'Όνομα μαθητή',listen:'🔊 Άκουσε',mr:'Κύριος Γκρεγκ',duck:'Πάπια',both:'ΚΟΙΝΑ',cards:'🌟 Διάλεξε και τοποθέτησε τις κάρτες',other:'💡 Άλλο — Η δική μου ιδέα',otherhelp:'Γράψε μια διαφορετική ιδέα και τοποθέτησέ την στο διάγραμμα.',custom:'Η ιδέα μου...',add:'+ Νέα κάρτα',refl:'📝 Σκέψου και γράψε',q:'Πώς θα ένιωθες αν ήσουν η πάπια; Τι έμαθε ο κύριος Γκρεγκ;',ans:'Νομίζω ότι…',reset:'↺ Επαναφορά',check:'✅ Έλεγχος',save:'📸 Αποθήκευση εικόνας',foot:'Πάτα μια τοποθετημένη κάρτα για να την πάρεις πίσω. Μπορεί να υπάρχουν πολλές σωστές απαντήσεις!',tap:'Τώρα πάτα έναν κύκλο!',added:'Μπράβο! Τοποθέτησε τη νέα κάρτα.',saved:'Η εικόνα σου αποθηκεύτηκε.',res:(a,b)=>`${a} από ${b} κάρτες ταιριάζουν με την πρότασή μας. Πράσινο = ταιριάζει, κίτρινο = σκέψου ξανά. Μετράνε και οι δικές σου αιτιολογήσεις!`,none:'Τοποθέτησε πρώτα μερικές κάρτες.'},
+it:{sub:'✨ IL DITO MAGICO · Roald Dahl ✨',title:'Due personaggi, due punti di vista',about:'📖 <b>Roald Dahl</b> scrisse <i>Il dito magico</i> nel 1966. Una bambina con un dito magico ferma la famiglia Gregg dalla caccia trasformandola in creature simili a uccelli. Ora vedono il mondo come lo vedono le anatre.',intro:'Trascina ogni carta nella parte giusta del diagramma di Venn, oppure tocca una carta e poi un cerchio. Arancione = solo il signor Gregg, azzurro = solo l’anatra, al centro = entrambi.',student:'Nome dello studente',listen:'🔊 Ascolta',mr:'Signor Gregg',duck:'Anatra',both:'IN COMUNE',cards:'🌟 Scegli e posiziona le carte',other:'💡 Altro — La mia idea',otherhelp:'Scrivi un’idea diversa e mettila nel diagramma.',custom:'La mia idea...',add:'+ Aggiungi carta',refl:'📝 Pensa e scrivi',q:'Come ti sentiresti se fossi l’anatra? Che cosa ha imparato il signor Gregg?',ans:'Penso che…',reset:'↺ Ricomincia',check:'✅ Controlla',save:'📸 Salva il mio disegno',foot:'Tocca una carta posizionata per riprenderla. Possono esserci più risposte ragionate!',tap:'Ora tocca un cerchio!',added:'Bene! Posiziona la nuova carta.',saved:'Il tuo disegno è stato salvato.',res:(a,b)=>`${a} carte su ${b} corrispondono al nostro suggerimento. Verde = corrisponde, giallo = rifletti ancora. Contano anche le tue ragioni!`,none:'Prima posiziona qualche carta.'},
+cs:{sub:'✨ KOUZELNÝ PRSTÍK · Roald Dahl ✨',title:'Dvě postavy, dva pohledy',about:'📖 <b>Roald Dahl</b> napsal <i>Kouzelný prstík</i> roku 1966. Dívka s kouzelným prstíkem zastaví rodinu Greggových v lovu tím, že je promění v tvory podobné ptákům. Teď vidí svět jako kachny.',intro:'Přetáhni každou kartu do správné části Vennova diagramu, nebo klepni na kartu a pak na kruh. Oranžová = jen pan Gregg, modrá = jen kachna, uprostřed = oba.',student:'Jméno žáka',listen:'🔊 Poslouchej',mr:'Pan Gregg',duck:'Kachna',both:'SPOLEČNÉ',cards:'🌟 Vyber a umísti karty',other:'💡 Jiné — Můj nápad',otherhelp:'Napiš jiný nápad a umísti ho do diagramu.',custom:'Můj nápad...',add:'+ Přidat kartu',refl:'📝 Přemýšlej a piš',q:'Jak by ses cítil(a) jako kachna? Co se naučil pan Gregg?',ans:'Myslím si, že…',reset:'↺ Znovu',check:'✅ Zkontrolovat',save:'📸 Uložit obrázek',foot:'Klepnutím na umístěnou kartu ji vrátíš zpět. Správných odpovědí může být víc!',tap:'Teď klepni na kruh!',added:'Skvělé! Umísti novou kartu.',saved:'Tvůj obrázek je uložen.',res:(a,b)=>`${a} z ${b} karet odpovídá našemu návrhu. Zelená = sedí, žlutá = ještě popřemýšlej. Důležité jsou i tvoje důvody!`,none:'Nejdřív umísti nějaké karty.'}};
+// id, emoji, suggested zone, en, tr, el, it, cs
+const B=[['a','🏹','left','Likes hunting','Avlanmayı sever','Του αρέσει το κυνήγι','Ama cacciare','Rád loví'],
+['b','🎯','left','Uses a gun','Silah kullanır','Χρησιμοποιεί όπλο','Usa un fucile','Používá pušku'],
+['c','👨','left','Is a human','Bir insandır','Είναι άνθρωπος','È un essere umano','Je člověk'],
+['k','💭','left','Learns to feel empathy','Empati kurmayı öğrenir','Μαθαίνει ενσυναίσθηση','Impara l’empatia','Učí se empatii'],
+['d','🪽','right','Can fly','Uçabilir','Μπορεί να πετάξει','Sa volare','Umí létat'],
+['e','🪶','right','Has feathers','Tüyleri vardır','Έχει φτερά','Ha le piume','Má peří'],
+['f','😨','right','Fears hunters','Avcılardan korkar','Φοβάται τους κυνηγούς','Ha paura dei cacciatori','Bojí se lovců'],
+['j','🪺','right','Builds a nest','Yuva yapar','Χτίζει φωλιά','Costruisce un nido','Staví hnízdo'],
+['g','❤️','both','Has a family','Ailesi vardır','Έχει οικογένεια','Ha una famiglia','Má rodinu'],
+['h','🏡','both','Needs a home','Yuvaya ihtiyacı vardır','Χρειάζεται σπίτι','Ha bisogno di una casa','Potřebuje domov'],
+['i','🌿','both','Wants to survive','Hayatta kalmak ister','Θέλει να επιβιώσει','Vuole sopravvivere','Chce přežít'],
+['l','😢','both','Feels fear','Korku hisseder','Νιώθει φόβο','Prova paura','Cítí strach']
+].map(r=>({id:r[0],e:r[1],z:r[2],t:{en:r[3],tr:r[4],el:r[5],it:r[6],cs:r[7]}}));
+let lang='en',placed={},custom=[],sel=null,chk=false;
+try{const s=localStorage.getItem('mf-lang');if(s&&S[s])lang=s}catch(e){}
+const all=()=>B.concat(custom),lab=c=>c.e+' '+(c.t[lang]||c.t.en);
+function apply(){document.documentElement.lang=lang;$('lang').value=lang;
+document.querySelectorAll('[data-i]').forEach(n=>{const v=S[lang][n.dataset.i];if(v!==undefined)n.innerHTML=v});
+document.querySelectorAll('[data-p]').forEach(n=>n.placeholder=S[lang][n.dataset.p]);$('q').textContent=S[lang].q;render()}
+function render(){for(const z of['left','right']){const el=document.querySelector(`[data-z=${z}]`);el.replaceChildren()}$('bothI').replaceChildren();$('tiles').replaceChildren();
+for(const c of all()){const z=placed[c.id],e=document.createElement('div');e.textContent=lab(c);
+if(z){e.className='placed'+(chk&&c.z?(c.z===z?' ok':' hm'):'');e.title='↩';e.onclick=ev=>{ev.stopPropagation();delete placed[c.id];chk=false;render()};(z==='both'?$('bothI'):document.querySelector(`[data-z=${z}]`)).append(e)}
+else{e.className='tile'+(sel===c.id?' sel':'');e.draggable=true;e.addEventListener('dragstart',ev=>ev.dataTransfer.setData('text/plain',c.id));e.onclick=()=>{sel=c.id;$('msg').textContent=S[lang].tap;render()};$('tiles').append(e)}}
+$('prog').textContent=Object.keys(placed).length+' / '+all().length}
+function put(id,z){if(!all().some(c=>c.id===id))return;placed[id]=z;sel=null;chk=false;$('msg').textContent='✨';render();const s=document.createElement('span');s.className='conf';s.textContent='✨';s.style.left=(30+Math.random()*40)+'vw';s.style.top='52vh';document.body.append(s);setTimeout(()=>s.remove(),900)}
+document.querySelectorAll('.zone').forEach(zn=>{zn.addEventListener('dragover',e=>{e.preventDefault();zn.classList.add('over')});zn.addEventListener('dragleave',()=>zn.classList.remove('over'));zn.addEventListener('drop',e=>{e.preventDefault();zn.classList.remove('over');put(e.dataTransfer.getData('text/plain'),zn.dataset.z)});zn.onclick=()=>{if(sel)put(sel,zn.dataset.z)}});
+document.querySelectorAll('.circle').forEach((c,i)=>c.onclick=()=>{if(sel)put(sel,i?'right':'left')});
+$('lang').onchange=e=>{lang=e.target.value;try{localStorage.setItem('mf-lang',lang)}catch(x){}apply()};
+$('add').onclick=()=>{const v=$('custom').value.trim();if(!v)return;const t={};for(const k in S)t[k]=v;custom.push({id:'x'+Date.now()+Math.random(),e:'💡',z:null,t});$('custom').value='';$('msg').textContent=S[lang].added;render()};
+$('custom').onkeydown=e=>{if(e.key==='Enter')$('add').click()};
+$('reset').onclick=()=>{placed={};custom=[];sel=null;chk=false;$('msg').textContent='';render()};
+$('check').onclick=()=>{const p=all().filter(c=>c.z&&placed[c.id]);if(!p.length){$('msg').textContent=S[lang].none;return}chk=true;const ok=p.filter(c=>placed[c.id]===c.z).length;$('msg').textContent=S[lang].res(ok,p.length);render();if(ok===p.length&&p.length===B.length)'🎉🦆✨'.split('').length&&['🎉','🦆','✨'].forEach(x=>{const s=document.createElement('span');s.className='conf';s.textContent=x;s.style.left=(25+Math.random()*50)+'vw';s.style.top='45vh';document.body.append(s);setTimeout(()=>s.remove(),900)})};
+$('listen').onclick=()=>{if(!window.speechSynthesis)return;speechSynthesis.cancel();const txt=[S[lang].intro,S[lang].q].concat(all().filter(c=>!placed[c.id]).map(c=>c.t[lang]||c.t.en));txt.forEach(t=>{const u=new SpeechSynthesisUtterance(t);u.lang=SP[lang];speechSynthesis.speak(u)})};
+$('save').onclick=()=>{const cv=document.createElement('canvas');cv.width=1400;cv.height=1200;const x=cv.getContext('2d'),T=S[lang];x.fillStyle='#fff8e9';x.fillRect(0,0,1400,1200);x.fillStyle='#653d9b';x.font='bold 50px Trebuchet MS';x.fillText(T.sub.replace(/✨/g,'').trim(),80,90);x.font='bold 34px Trebuchet MS';x.fillText(T.title,80,148);x.font='26px Trebuchet MS';x.fillText($('student').value,80,195);
+x.globalAlpha=.72;x.fillStyle='#f9b56e';x.beginPath();x.arc(490,600,350,0,7);x.fill();x.fillStyle='#80c9f1';x.beginPath();x.arc(910,600,350,0,7);x.fill();x.globalAlpha=1;x.textAlign='center';x.fillStyle='#302b4b';x.font='bold 38px Trebuchet MS';x.fillText('🧑‍🌾 '+T.mr,380,350);x.fillText('🦆 '+T.duck,1020,350);x.font='bold 30px Trebuchet MS';x.fillText(T.both,700,590);
+for(const[z,px,py]of[['left',370,425],['right',1030,425],['both',700,640]])all().filter(c=>placed[c.id]===z).forEach((c,i)=>{x.font='bold 22px Trebuchet MS';x.fillText(lab(c).slice(0,30),px,py+i*40)});
+x.textAlign='left';x.fillStyle='#653d9b';x.font='bold 24px Trebuchet MS';x.fillText(T.q.slice(0,95),80,1050);x.font='22px Trebuchet MS';x.fillStyle='#302b4b';const a=$('ans').value;[a.slice(0,100),a.slice(100,200)].forEach((l,i)=>x.fillText(l,80,1095+i*34));
+const l=document.createElement('a');l.href=cv.toDataURL('image/png');l.download='magic-finger-venn.png';l.click();$('msg').textContent=T.saved};
+apply();
+</script></body></html>
